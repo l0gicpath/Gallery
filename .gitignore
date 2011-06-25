@@ -1,0 +1,3 @@
+*.komodoproject
+push-*.sh
+rsync-list
