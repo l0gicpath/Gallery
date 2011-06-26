@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1;">
+		<title>Gallery of images in your mailbox</title>
+	</head>
+	<body>
+		<h1>Sign in</h1>
+		<?php if (isset($feedback)) {
+			echo "		<div class=\"feedback {$feedback['class']}\">{$feedback['code']}</div>\n";
+		} ?>
+		<form method="post" action="/signin">
+			<div class="field">
+				<label for="username">email: </label>
+				<input type="text" name="u" id="username"/>
+			</div>
+			<div class="field">
+				<label for="password">password: </label>
+				<input type="password" name="p" id="password" />
+			</div>
+			<div class="buttons">
+				<button type="submit">sign in</button>
+			</div>
+		</form>
+	</body>
+</html>
