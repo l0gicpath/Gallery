@@ -19,6 +19,7 @@ class User {
 	
 	private $params;
 	private $id;
+	private $ctxIoAccnt;
 
 	/**
 	 * Instantiate a new User object
@@ -39,9 +40,11 @@ class User {
 			if (is_null($user)) {
 				$this->id = null;
 				$this->params = array();
+				$this->ctxIoAccnt = '';
 			} else {
 				$this->id = $id;
 				$this->params = $user;
+				$this->ctxIoAccnt = $user['ctxIO'][0]['email'];
 			}
 		}
 	}
@@ -79,6 +82,7 @@ class User {
 		}
 
 		$this->params = $user;
+		$this->ctxIoAccnt = $user['ctxIO'][0]['email'];
 		
 		return $user['_id']->__toString();
 	}
@@ -91,8 +95,27 @@ class User {
 		return (array_key_exists('email', $this->params)) ? $this->params['email'] : false;
 	}
 	
-	public function getContextIoId() {
-		return (array_key_exists('ctxIO', $this->params)) ? $this->params['ctxIO'] : false;
+	public function setContextIoAccount($account) {
+		foreach ($this->params['ctxIO'] as $key) {
+			if ($key['email'] == $account) {
+				$this->ctxIoAccnt = $account;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public function getContextIoAccount() {
+		return $this->ctxIoAccnt;
+	}
+	
+	public function getContextIoId($account = null) {
+		if (!array_key_exists('ctxIO', $this->params)) return null;
+		if (is_null($account)) $account = $this->ctxIoAccnt;
+		foreach ($this->params['ctxIO'] as $key) {
+			if ($key['email'] == $account) return $key['id'];
+		}
+		return null;
 	}
 		
 	private function _loadAndCachePicture($fileId) {

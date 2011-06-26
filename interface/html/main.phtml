@@ -2,19 +2,61 @@
 <html>
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="chrome=1;">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Gallery of images in your mailbox</title>
-<?php /*
-		<link rel="stylesheet" type="text/css" href="/css/common.css" />
-		<link rel="stylesheet" type="text/css" href="/css/app.css" />
-
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Droid+Sans:regular,bold">
+		<link rel="stylesheet" type="text/css" href="/css/gallery.css" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/<?php echo LIBRARY_VERSION_JQUERY; ?>/jquery.min.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/<?php echo LIBRARY_VERSION_JQUERYUI; ?>/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="/js/jquery.ba-hashchange.min.js"></script>
-		<script type="text/javascript" src="/js/dateToLocaleFormat.js"></script>
-		<script type="text/javascript" src="/js/app.js"></script>
-		*/ ?>
+		<script type="text/javascript" src="/js/jquery.lightbox-0.5.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/jquery.lightbox-0.5.css" media="screen" />
+		<script type="text/javascript" src="/js/gallery.js"></script>
 	</head>
 	<body>
-		<?php echo $bodyContent; ?>
+		<div id="header">
+			<ul role="navigation" class="pages">
+				<?php
+				for ($i = 0; $i < $numPages; ++$i) {
+					$class = ($i == $page) ? ' class="selected"' : '';
+					echo "<li{$class}><a href=\"/page{$i}\">".($i + 1)."</a></li>";
+				}
+				?>
+			</ul>
+			<h1>photo album from: </h1>
+			<h2><?php echo $email; ?></h2>
+		</div>
+		<ul id="thumbnails" class="clearfix">
+<?php
+	for ($i = $page * THUMBNAIL_PAGE_SIZE; $i < (($page + 1) * THUMBNAIL_PAGE_SIZE); ++$i) {
+		if ($pics[$i]) {
+			?>
+			<li class="clearfix">
+				<span class="thumbnail">
+					<a href="/photos/<?php echo $pics[$i]['fileId']; ?>" target="_blank">
+						<img src="/photos/<?php echo $pics[$i]['fileId']; ?>/thumb" border="0" />
+					</a>
+				</span>
+				<span class="picInfo">
+					<span class="subject"><?php echo $pics[$i]['subject']; ?></span>
+					<span class="field">
+						<label>date:</label>
+						<span class="date"><?php echo date("Y.m.d",$pics[$i]['date']); ?></span>
+					</span>
+					<span class="field">
+						<label>from:</label>
+						<span class="from"><?php echo (empty($pics[$i]['addresses']['from']['name'])) ? $pics[$i]['addresses']['from']['email'] : $pics[$i]['addresses']['from']['name']; ?></span>
+					</span>
+					<span class="field file">
+						<label>file:</label>
+						<span class="name"><?php echo $pics[$i]['fileName']; ?></span>
+						<span class="size"><?php $size = formatByteSize($pics[$i]['size'], (($pics[$i]['size'] > 1024*1024) ? 1 : null) ); echo $size['str']; ?></span>
+					</span>
+				</span>
+			</li>
+			<?php
+		}
+	}
+?>
+		</ul>
 	</body>
 </html>
