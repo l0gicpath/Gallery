@@ -1,0 +1,15 @@
+Build an instant photo gallery from pictures found in your inbox.
+
+This has been built in about 4 hours during the Web Mining Hack Day organized by
+the great guys at diffbot.
+http://webmininghackday.eventbrite.com/
+
+To make it work, you need to get a Context.IO API key: http://context.io/#signup.
+
+You also need to create a conf/conf.keys.php which has the following content:
+
+<?php
+define('CONTEXTIO_CONSUMER_KEY','your-context.io-consumer-key');
+define('CONTEXTIO_CONSUMER_SECRET','your-context.io-consumer-secret');
+define('SITE_KEY','a-random-string-used-to-password-hashing');
+?>
