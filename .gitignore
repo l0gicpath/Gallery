@@ -1,3 +1,4 @@
 *.komodoproject
 push-*.sh
 rsync-list
+conf/conf.keys.php
