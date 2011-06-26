@@ -51,6 +51,8 @@ p, div, span {
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px 20px;
+	max-width: 50%;
+	overflow: hidden;
 }
 
 #header ul li {

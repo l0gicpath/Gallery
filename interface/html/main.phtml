@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<div id="header">
-			<ul role="navigation" class="pages">
+			<ul role="navigation" class="pages clearfix">
 				<?php
 				for ($i = 0; $i < $numPages; ++$i) {
 					$class = ($i == $page) ? ' class="selected"' : '';
@@ -23,7 +23,10 @@
 				?>
 			</ul>
 			<h1>photo album from: </h1>
-			<h2><?php echo $email; ?></h2>
+			<span><select id="accountPicker"><?php foreach ($emails as $eml) {
+				$sel = ($eml == $email) ? 'selected="selected"' : '';
+				echo "<option value=\"".$eml."\"$sel>".$eml."</option>";
+			} ?></select></span>
 		</div>
 		<ul id="thumbnails" class="clearfix">
 <?php

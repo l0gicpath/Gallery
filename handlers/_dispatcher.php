@@ -21,12 +21,20 @@ if ($resource == 'photos') {
 	die();
 }
 
+else if ($resource == 'account') {
+	$eml = strval($_POST['eml']);
+	$_SESSION['ctxEmail'] = $eml;
+	$jsonData = array('success' => true);
+	include_once(JSON_RESPONSE);
+}
+
 else {
 	if (!$isXHR) {
 		// get list of files and return it
 		$pics = $sessUser->fetchPictureList();
 		$page = (empty($rewriteQuery[0])) ? 0 : intval(preg_replace("/^page/",'',$rewriteQuery[0]));
 		$numPages = ceil(count($pics) / THUMBNAIL_PAGE_SIZE);
+		$emails = $sessUser->getContextIoAccounts();
 		$email = $sessUser->getContextIoAccount();
 		include_once(UI_WEB_MAIN);
 	}

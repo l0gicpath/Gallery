@@ -50,6 +50,7 @@ if ($rewriteQuery[0] == 'signin') {
 	}
 	else {
 		$sessUser = new User($_SESSION['userId']);
+		if (array_key_exists('ctxEmail', $_SESSION)) $sessUser->setContextIoAccount($_SESSION['ctxEmail']);
 		require_once(DISPATCHER);
 	}
 }

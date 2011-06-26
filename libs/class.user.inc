@@ -109,6 +109,14 @@ class User {
 		return $this->ctxIoAccnt;
 	}
 	
+	public function getContextIoAccounts() {
+		$accnts = array();
+		foreach ($this->params['ctxIO'] as $key) {
+			$accnts[] = $key['email'];
+		}
+		return $accnts;
+	}
+	
 	public function getContextIoId($account = null) {
 		if (!array_key_exists('ctxIO', $this->params)) return null;
 		if (is_null($account)) $account = $this->ctxIoAccnt;
